@@ -23,7 +23,7 @@ public class Produto {
     //Quando tu determina o tipo que a funçao terá(string, wtv), tem de retornar algo do mesmo tipo
     public String comprar(int quantidade){
         this.stock += quantidade;
-return ("Nice!");
+return ("Nice! Comprado");
 }
 public  String vender(int quantidade){
 
