@@ -20,7 +20,7 @@ public class Produto {
     //Uma funçao void nao tem de retornar nada. Não é necessario usar return. Por ex. em menus, queremos apenas mostrar o menu e não retornar um resultado
 
 
-    //Quando tu determina o tipo que a funçao terá(string, wtv), tem de retornar algo do mesmo tipo
+    //Quando se determina o tipo que a funçao terá(string, wtv), tem de retornar algo do mesmo tipo
     public String comprar(int quantidade){
         this.stock += quantidade;
 return ("Nice! Comprado");

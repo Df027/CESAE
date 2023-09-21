@@ -13,7 +13,12 @@ public class Funcionario {
 
     //Método construtor para inicializar os atributos
 
+    public Funcionario(String nome, double salario, String departamento) {
+        this.nome = nome;
+        this.salario = salario;
+        this.departamento = departamento;
+    }
 
-
+public void aumentarSalario
 
 }
