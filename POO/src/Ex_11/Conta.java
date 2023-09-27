@@ -1,58 +1,34 @@
 package Ex_11;
 
-import java.sql.SQLOutput;
+public class Conta{
+    //Declarar atributos da classe Conta
 
-public class Conta {
+    private int numero_Conta;
 
-    private String numero_Conta;
-
-    private double saldo=0;
+    private double saldo;
 
     private String titular;
 
-    /** Método Construtor para uma Conta
-     * numero_Conta . IBAN (Numero da conta)
-     * titular - Nome do Titular da Conta
-     *
-     * **/
-    public Conta(String numero_Conta, String titular){
+    //Método construtor para inicializar os atributos de uma conta
+    public Conta(int numero_Conta, double saldo, String titular) {
         this.numero_Conta = numero_Conta;
+        this.saldo = saldo;
         this.titular = titular;
     }
 
-    /** Método para Depositar Dinheiro na Conta
-     * valor - Valor a Depositar **/
+    //Método transferência que tenha como parametros o valor a transferir e a conta de destinatario
+
+    public void transferencia(double valor_transferir, Conta conta_transferencia){
+        this.saldo = this.saldo - valor_transferir;
+        conta_transferencia.saldo = conta_transferencia.saldo + valor_transferir;
+    }
+
+    //Método depositar (aumentar saldo)
     public void depositar(double valor){
-        this.saldo+=valor;
-        System.out.println("Deposito efetuado");
+        this.saldo = this.saldo + valor;
+        System.out.println("Saldo da conta "+this.numero_Conta+":"+this.saldo);
     }
-    // Método para levantar dinheiro da conta
-    public void levantar(double valor){
-        if(this.saldo>=valor){
-            //Caso possa levantar
-            this.saldo-=valor;
-            System.out.println("Levantamento Efetuado");
 
-        }else{
-            //Caso não tenha saldo suficiente
-            System.out.println("Levantamento recusao, saldo insuficiente");
-        }
-    }
-// Metodo para transferir dinheiro de uma conta para outra
 
-    public void transferir(Conta contaDestino, double valor){
-        if(this.saldo>=valor){
-            //Caso a transferencia seja valida
-            this.saldo-=saldo;
-            contaDestino.depositar(valor);
-        }else{
-            //Caso a transferencia invalida, saldo insuficiente
-            System.out.println("Transf. recusada, saldo insuficiente");
-        }
-    }
-    public void verDetalhes(){
-        System.out.println("Numero da conta"+this.numero_Conta);
-        System.out.println("Titular"+this.titular);
-        System.out.println("Saldo atual"+this.saldo);
-    }
+
 }

@@ -14,6 +14,7 @@ public class Aluno {
         this.media = media;
     }
 
+
     public void situacao() {
         if (this.media >= 9.5) {
             System.out.println("Aprovado");
