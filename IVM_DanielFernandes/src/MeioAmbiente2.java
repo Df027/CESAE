@@ -1,10 +1,9 @@
 import Enums.Alimentacao;
 import Enums.Familia;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 
-public class MeioAmbiente {
+public class MeioAmbiente2 {
 
     private String nome;
 
@@ -18,7 +17,7 @@ public class MeioAmbiente {
      * @param nome - nome do Meio Ambiente
      * @param agua - quantidade de água (L)
      */
-    public MeioAmbiente(String nome, double agua) {
+    public MeioAmbiente2(String nome, double agua) {
         this.nome = nome;
         this.agua = agua;
         this.seres = new ArrayList<>();
@@ -175,18 +174,6 @@ ambiente) */
         if (animal.isFome()) {
             if (animal.getAlimentacao() == Alimentacao.HERBIVORO || animal.getAlimentacao() == Alimentacao.OMNIVORO) {
 
-                //Verificar se no nosso array seres existe uma planta. Começamos por assumir que não há plantas
-                boolean plantaFound = false;
-                //Percorrer o array seres, para verificar se existe alguma planta. Se houver, plantaFound passa a true
-                for (int i = 0; i < this.seres.size(); i++) {
-                    if (this.seres.get(i) instanceof Planta) {
-                        plantaFound = true;
-                    }
-                }
-                if (!plantaFound){
-                    System.out.println("Não existem plantas disponíveis para o animal comer!");
-                }
-
                 for (int i = 0; i < this.seres.size(); i++) {
                     if (this.seres.get(i) instanceof Planta) {
                         Planta plantaAtacada = (Planta) this.seres.get(i);
@@ -259,6 +246,9 @@ ambiente) */
                             return false;
                         }
 
+                    } else {
+                        System.out.println("Não existem plantas disponíveis! O animal não conseguiu comer.");
+                        return false;
                     }
 
 
@@ -267,19 +257,6 @@ ambiente) */
 
 
             }else if(animal.getAlimentacao() == Alimentacao.CARNIVORO || animal.getAlimentacao() == Alimentacao.OMNIVORO) {
-                //Verificar se no nosso array seres existe um animal ou inseto. Começamos por assumir que não há
-                boolean animalOrInsectFound = false;
-                //Percorrer o array seres, para verificar se existe algum animal ou inseto. Se houver, animalOrInsectFound passa a true
-                for (int i = 0; i < this.seres.size(); i++) {
-                    if ((this.seres.get(i) instanceof Animal || this.seres.get(i) instanceof Inseto) && indexAnimal!= i) {
-                        animalOrInsectFound = true;
-                    }
-                }
-                if (!animalOrInsectFound){
-                    System.out.println("Não existem animais ou insetos disponíveis para o animal comer!");
-                }
-
-
                 for (int i = 0; i < this.seres.size(); i++) {
 
                     // Se o ser vivo é da instancia Animal, e o animal não é ele próprio
@@ -335,7 +312,12 @@ ambiente) */
                             //Return false porque nao conseguiu comer
                             return false;
                         }
+                    }else{
+                        System.out.println("Não existem outros animais ou insetos disponíveis para o animal comer.");
+                        //Return false porque nao conseguiu comer
+                        return false;
                     }
+
                 }
             }
             /*  Se estiver a comer um inseto: se for venenoso o animal morre, é retirado do meio

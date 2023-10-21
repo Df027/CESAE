@@ -38,6 +38,8 @@ public class Animal extends SerVivo {
         this.alimentacao = alimentacao;
     }
 
+
+    /* Criamos estes métodos para os atributos serem acessíveis nas outras classes */
     public boolean isFome() {
         return fome;
     }
