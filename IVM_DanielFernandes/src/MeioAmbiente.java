@@ -369,7 +369,6 @@ parâmetros */
      */
     public void insetoChateia(){
         int barulho = (int) (Math.random()*3+1);
-        System.out.println(barulho);
         if (barulho == 1){
             System.out.println("Bzzzz bzzzz");
         } else if (barulho == 2){
@@ -382,7 +381,120 @@ parâmetros */
     }
 
 
+        //Tem como parâmetro o número de dias que queremos simular no meio ambiente. Meio o qual terá
+    //seres vivos de vários tipos adicionados.
+    //• Este método deve ter uma variável: acontecimento que será um Random de 1 até 4.
+    //o Esta variável deve escolher qual a classe de SerVivo que irá ter um comportamento:
+    // 1: Uma planta irá ter uma ação.
+    // 2: Um animal irá ter uma ação.
+    // 3: Um inseto irá ter uma ação.
+    // 4: Catástrofe natural.
+    //• Seguidamente, após ter escolhido uma classe de ser vivo para ter uma ação, deve verificar todos os
+    //animais existentes no meio dessa determinada classe e guardar os seus índices num novo array
+    //auxiliar. (usar ArrayList para facilitar imenso)
+    //• Posteriormente, seleciona novamente de forma aleatória qual o ser vivo que terá uma ação e
+    //executa uma das ações desse ser vivo. Se for:
+    //o Planta: deve escolher aleatoriamente se invoca plantaAbanaComVento( ), plantaBebe( ) ou
+    //plantaComeInseto( ) (para o caso de ser planta come insetos).
+    //o Animal: deve escolher aleatoriamente se invoca animalFazBarulho( ), animalMovimenta( ),
+    //animalBebe( ) ou animalCome( ).
+    //o Inseto: deve invocar insetoChateia( ).
 
+    public void simulador(int numDias){
+        ArrayList<Integer> indicesPlantas = new ArrayList<>();
+        ArrayList<Integer> indicesAnimais = new ArrayList<>();
+        ArrayList<Integer> indicesInsetos = new ArrayList<>();
+
+        for(int i=0;i< this.seres.size();i++){
+            if (this.seres.get(i) instanceof Planta){
+                indicesPlantas.add(i);
+            }else if (this.seres.get(i) instanceof Animal) {
+                indicesAnimais.add(i);
+            }else if(this.seres.get(i) instanceof Inseto) {
+                indicesInsetos.add(i);
+            }
+        }
+
+        int acontecimento = (int) (Math.random()*4+1);
+        //Se for uma planta
+        if (acontecimento == 1) {
+            //Para escolher uma planta aleatória com base no seu indice aleatório
+            int plantaAleatoria = indicesPlantas.get((int) (Math.random()*indicesPlantas.size()));
+            int acaoPlanta = (int) (Math.random()*3+1);
+            if (acaoPlanta == 1){
+                System.out.println("A planta vai abanar com o vento!");
+                plantaAbanaComVento(plantaAleatoria);
+            }else if(acaoPlanta == 2){
+                System.out.println("A planta vai tentar beber água!");
+                plantaBebe(plantaAleatoria);
+            }else if(acaoPlanta == 3){
+                System.out.println("A planta vai tentar comer um inseto!");
+                Planta planta = (Planta) this.seres.get(plantaAleatoria);
+                if (planta.getFamilia()== Familia.COMEINSETOS){
+                    plantaComeInsetos(plantaAleatoria);
+                }else{
+                    System.out.println("A planta não é da familia come insetos, por isso não comeu nenhum.");
+                }
+            }
+
+            //Se for um animal
+        }else if(acontecimento == 2){
+            System.out.println("Foi escolhido um animal para fazer uma ação.");
+
+            //Para escolher um animal aleatório com base no seu indice aleatório
+            int animalAleatorio = indicesAnimais.get((int) (Math.random()*indicesAnimais.size()));
+            int acaoAnimal = (int) (Math.random()*4+1);
+            if (acaoAnimal == 1){
+                System.out.println("O animal vai fazer barulho!");
+                animalFazBarulho(animalAleatorio);
+            }else if(acaoAnimal == 2){
+                System.out.println("O animal vai movimentar-se!");
+                animalMovimenta(animalAleatorio);
+            }else if(acaoAnimal == 3){
+                System.out.println("O animal vai tentar beber água!");
+                animalBebe(animalAleatorio);
+            }else if(acaoAnimal == 4){
+                System.out.println("O animal vai tentar comer!");
+                animalCome(animalAleatorio);
+            }
+
+
+
+            //Se for um inseto
+        }else if(acontecimento == 3){
+            //Para escolher um inseto aleatório com base no seu indice aleatório
+            int insetoAleatorio = indicesInsetos.get((int) (Math.random()*indicesInsetos.size()));
+            SerVivo inseto = this.seres.get(insetoAleatorio);
+            System.out.println("O inseto "+inseto.getNome()+" vai fazer barulho!");
+            insetoChateia();
+
+        //Se for uma catástrofe natural
+        }else if(acontecimento == 4){
+            //Para escolher uma catástrofe aleatória com base num número aletorio de 1 a 3
+            int catastrofeAleatoria = (int) (Math.random()*3+1);
+            //Na 1º catastrofe (seca), a água diminui para metade
+            if (catastrofeAleatoria == 1){
+                System.out.println("Seca extrema! A água diminuiu para metade.");
+                this.agua /= 2;
+            //Na 2º catastrofe (cheias) a água aumenta para o dobro
+            }else if(catastrofeAleatoria == 2){
+                System.out.println("Dilúvio! A água aumentou para o dobro.");
+                this.agua *=2;
+            }else if(catastrofeAleatoria ==3){
+            //Percorre metade do array indicesAnimais ( /2)
+                System.out.println("Erupção vulcânica!Morreram metade dos animais e plantas!");
+                for(int i=0;i< indicesAnimais.size()/2;i++){
+                    //Remove metade dos animais
+                    this.seres.remove(i);
+                }for(int i=0;i< indicesPlantas.size()/2;i++) {
+                    //Remove metade das plantas
+                    this.seres.remove(i);
+                }
+            }
+
+        }
+
+}
 
 
     public void exibirDetalhes() {
